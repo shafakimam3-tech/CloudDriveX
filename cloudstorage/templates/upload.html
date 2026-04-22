@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="page-title">📁 My Files</h2>
+
+<form method="GET" class="search-box">
+
+    <input type="text" name="q" placeholder="Search files..." value="{{ query }}">
+    
+    <button type="submit">🔍</button>
+    
+    </form>
+
+<!-- Storage Bar -->
+<div class="storage-box">
+
+<p>
+📦 Storage Used: {{ total_size_gb|floatformat:4 }} GB of {{ max_storage }} GB
+</p>
+
+<div class="storage-bar">
+    <div class="storage-fill" style="width: {{ percent }}%"></div>
+</div>
+
+</div>
+
+<!-- Upload Box -->
+<div class="upload-box">
+
+<form method="POST" action="/upload/" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <input type="file" name="file" required>
+
+    <button type="submit">Upload</button>
+
+</form>
+
+</div>
+
+<!-- File Count -->
+<p class="file-count">
+    Total Files: {{ files|length }}
+</p>
+
+
+
+<!-- Files Grid -->
+<div class="file-grid">
+
+{% for file in files %}
+
+<div class="file-card">
+
+    <div class="file-icon">
+        {% if ".pdf" in file.file.name %}
+        📄
+        {% elif ".jpg" in file.file.name or ".png" in file.file.name or ".jpeg" in file.file.name %}
+        🖼
+        {% elif ".ppt" in file.file.name or ".pptx" in file.file.name %}
+        📊
+        {% else %}
+        📁
+        {% endif %}
+    </div>
+
+    <div class="file-name">
+        {{ file.file.name|cut:"uploads/" }}
+    </div>
+
+    <div class="file-info">
+        {{ file.file_size|floatformat:2 }} MB <br>
+        {{ file.uploaded_at|date:"d M Y" }}
+    </div>
+
+    <div class="file-actions">
+        <a href="{% url 'download_file' file.id %}" class="btn download-btn">
+            ⬇ Download
+        </a>
+    
+        <a href="{% url 'delete_file' file.id %}" class="btn delete-btn">
+            🗑
+        </a>
+    
+        <a href="{% url 'shared_file' file.share_token %}" class="btn share-btn">
+            🔗
+        </a>
+    </div>
+
+</div>
+
+{% empty %}
+
+<p>No files uploaded yet.</p>
+
+{% endfor %}
+
+</div>
+
+<style>
+
+    /* 🌈 Animated Gradient Background */
+    body{
+        background: linear-gradient(-45deg, #667eea, #764ba2, #6dd5ed, #2193b0);
+        background-size: 400% 400%;
+        animation: gradientBG 12s ease infinite;
+    }
+    
+    /* Page Title */
+    .page-title{
+        font-size:26px;
+        margin-bottom:15px;
+        color:white;
+    }
+    
+    /* Storage Box */
+    .storage-box{
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(10px);
+        padding:20px;
+        border-radius:15px;
+        margin-bottom:20px;
+        color:white;
+    }
+    
+    /* Storage Bar */
+    .storage-bar{
+        background:rgba(255,255,255,0.3);
+        height:10px;
+        border-radius:10px;
+        overflow:hidden;
+    }
+    
+    .storage-fill{
+        background:white;
+        height:100%;
+        border-radius:10px;
+        transition:width 0.5s ease;
+    }
+    
+    /* Upload Section */
+    .upload-box{
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(10px);
+        padding:25px;
+        border-radius:15px;
+        margin-bottom:25px;
+    }
+    
+    /* Upload Button */
+    .upload-box button{
+        background:white;
+        color:#667eea;
+        border:none;
+        padding:10px 20px;
+        border-radius:8px;
+        cursor:pointer;
+    }
+    
+    /* Grid Layout */
+    .file-grid{
+        display:grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap:25px;
+    }
+    
+    /* File Card */
+    .file-card{
+        background: rgba(255,255,255,0.25);
+        backdrop-filter: blur(12px);
+        padding:25px;
+        border-radius:15px;
+        text-align:center;
+        color:white;
+        transition:0.3s;
+        box-shadow:0 8px 25px rgba(0,0,0,0.2);
+    }
+    
+    /* Hover Effect 🔥 */
+    .file-card:hover{
+        transform:translateY(-8px) scale(1.03);
+        box-shadow:0 15px 35px rgba(0,0,0,0.3);
+    }
+    
+    /* File Icon */
+    .file-icon{
+        font-size:50px;
+        margin-bottom:10px;
+    }
+    
+    /* File Name */
+    .file-name{
+        font-weight:bold;
+        margin-bottom:5px;
+    }
+    
+    /* File Info */
+    .file-info{
+        font-size:12px;
+        opacity:0.9;
+    }
+    
+    /* Actions */
+    .file-actions a{
+        margin:5px;
+        font-size:18px;
+        text-decoration:none;
+        color:white;
+        padding:6px;
+        border-radius:6px;
+    }
+    
+    /* Hover */
+    .file-actions a:hover{
+        background:rgba(255,255,255,0.3);
+    }
+    
+    /* Animation */
+    @keyframes gradientBG {
+        0%{background-position: 0% 50%;}
+        50%{background-position: 100% 50%;}
+        100%{background-position: 0% 50%;}
+    }
+    
+    </style>
+
+{% endblock %}

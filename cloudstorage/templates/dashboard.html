@@ -1,0 +1,171 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CloudDriveX Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>CloudDriveX</h2>
+
+        <ul class="menu">
+            <li>My Drive</li>
+            <li>Shared files</li>
+            <li>Favorites</li>
+            <li><a href="{% url 'upload_file' %}">Upload files</a></li>
+            <li>Statistics</li>
+            <li>Trash</li>
+        </ul>
+
+        <div class="bottom-menu">
+            <a href="#">⚙ Settings</a>
+            <a href="{% url 'logout' %}">⎋ Logout</a>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+
+        <!-- Search -->
+        <form method="GET">
+            <input type="text" name="q" placeholder="Search..." value="{{ query }}" class="search-bar">
+        </form>
+
+        <!-- Categories -->
+        <div class="categories">
+            <div class="card red">Photos<br><span>50 files</span></div>
+            <div class="card green">Documents<br><span>05 files</span></div>
+            <div class="card yellow">Videos<br><span>12 files</span></div>
+            <div class="card blue-card">Audio<br><span>16 files</span></div>
+        </div>
+
+        <!-- Folders -->
+        <div class="folders">
+
+            <div class="folder-card">
+                <div class="icon-box purple">📁</div>
+                <h4>Work</h4>
+                <p>04 files</p>
+                <div class="line"></div>
+            </div>
+
+            <div class="folder-card">
+                <div class="icon-box teal">👤</div>
+                <h4>Personal</h4>
+                <p>15 files</p>
+                <div class="line"></div>
+            </div>
+
+            <div class="folder-card">
+                <div class="icon-box pink">🎓</div>
+                <h4>School</h4>
+                <p>02 files</p>
+                <div class="line"></div>
+            </div>
+
+            <div class="folder-card">
+                <div class="icon-box blue">📁</div>
+                <h4>Archive</h4>
+                <p>18 files</p>
+                <div class="line"></div>
+            </div>
+
+            <div class="folder-card add">
+                <span>+</span>
+            </div>
+
+        </div>
+
+        <!-- Recent Files -->
+        <div class="recent">
+            <h3>Recent Files</h3>
+
+            {% for file in files %}
+            <div class="file-row">
+
+                <div class="file-icon">
+                    {% if file.file_type == 'image' %} 🖼️
+                    {% elif file.file_type == 'video' %} 🎬
+                    {% elif file.file_type == 'audio' %} 🎵
+                    {% else %} 📄
+                    {% endif %}
+                </div>
+
+                <div class="file-info">
+                    <strong>{{ file.file.name|cut:"uploads/" }}</strong><br>
+                    <small>{{ file.file.name|slice:"-3:"|upper }} file</small>
+                </div>
+
+                <div class="file-size">
+                    {{ file.file_size|floatformat:2 }} MB
+                </div>
+
+                <div class="file-actions">
+                    <a href="{% url 'shared_file' file.share_token %}" target="_blank">🔗</a>
+
+                    <div class="dropdown">
+                        <span class="dots" onclick="toggleMenu(this)">⋯</span>
+                    
+                        <div class="dropdown-menu">
+                            <a href="{% url 'download_file' file.id %}" class="menu-item">
+                                ⬇ Download
+                            </a>
+                    
+                            <a href="{% url 'delete_file' file.id %}" class="menu-item delete">
+                                🗑 Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+
+        <div class="upload-box">
+            <form method="POST" action="{% url 'upload_file' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label class="upload-label">
+                    ⬆ Add new files
+                    <input type="file" name="file" hidden onchange="this.form.submit()">
+                </label>
+            </form>
+        </div>
+
+        <div class="storage">
+            <p>Storage Used</p>
+            <div class="bar">
+                <div class="progress" style="width: {{ percent }}%;"></div>
+            </div>
+            <p>{{ total_size_gb }} GB / {{ max_storage }} GB</p>
+        </div>
+
+        <div class="shared">
+            <p class="shared-title">Your shared folders</p>
+        
+            <div class="shared-box blue-bg">Design files</div>
+            <div class="shared-box purple-bg">Summer photos</div>
+            <div class="shared-box pink-bg">Project report</div>
+        
+            <div class="add-more">+ Add more</div>
+        </div>
+<!-- ✅ FOOTER OUTSIDE shared (important) -->
+<div class="right-footer">
+    Developed by Shafak Imam 
+</div>
+    </div>
+
+</div>
+
+</body>
+</html>

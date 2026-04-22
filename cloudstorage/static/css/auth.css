@@ -1,0 +1,97 @@
+* {
+    box-sizing: border-box;   /* ✅ VERY IMPORTANT */
+}
+/* Background same feel as dashboard */
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(135deg, #5f6ddf, #7b4bc4);
+
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container */
+.auth-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Card */
+.auth-card {
+    background: white;
+    padding: 45px 35px;
+    border-radius: 18px;
+    width: 380px;   /* ⬅ slightly bigger */
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+/* Title */
+.auth-card h2 {
+    margin-bottom: 20px;
+}
+
+/* Inputs */
+.auth-card input {
+    width: 100%;
+    padding: 13px;
+    margin: 12px 0;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+/* Focus */
+.auth-card input:focus {
+    border-color: #6c5ce7;
+}
+
+/* Button */
+.auth-card button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #6c5ce7;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.auth-card button:hover {
+    background: #5a4fcf;
+}
+
+/* Bottom text */
+.auth-link {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.auth-link a {
+    color: #6c5ce7;
+    text-decoration: none;
+}
+
+
+
+
+.project-title {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 10px;
+}
+
+.auth-footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #94a3b8;
+    line-height: 1.5;
+}

@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="home-container">
+
+```
+<div class="home-card">
+
+    <h1>☁ CloudDriveX</h1>
+
+    <p class="tagline">
+        Secure • Fast • Smart File Storage
+    </p>
+
+    <p class="desc">
+        Store, manage and share your documents anytime, anywhere with complete security.
+    </p>
+
+    <div class="buttons">
+        <a href="/login/" class="btn primary">Login</a>
+        <a href="/register/" class="btn secondary">Get Started</a>
+    </div>
+
+</div>
+
+<!-- Signature 🔥 -->
+<p class="signature">
+    Developed by <strong>Shafak Imam</strong>
+</p>
+```
+
+</div>
+
+<style>
+
+/* Full Page Center */
+.home-container{
+    height:85vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    /* 🔥 Animated Gradient */
+    background: linear-gradient(-45deg, #667eea, #764ba2, #6dd5ed, #2193b0);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+}
+
+/* Card */
+.home-card{
+    background:white;
+    padding:50px;
+    border-radius:20px;
+    text-align:center;
+    width:450px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+    animation:fadeIn 1s ease;
+}
+
+/* Title */
+.home-card h1{
+    font-size:36px;
+    margin-bottom:10px;
+    color:#333;
+}
+
+/* Tagline */
+.tagline{
+    color:#667eea;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+/* Description */
+.desc{
+    color:#666;
+    font-size:14px;
+    margin-bottom:25px;
+}
+
+/* Buttons */
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+}
+
+/* Buttons */
+.btn{
+    padding:12px 20px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+/* Primary */
+.primary{
+    background:#667eea;
+    color:white;
+}
+
+/* Secondary */
+.secondary{
+    background:#eee;
+    color:#333;
+}
+
+/* Hover Effects 🔥 */
+.primary:hover{
+    background:#5a67d8;
+    transform:translateY(-2px);
+}
+
+.secondary:hover{
+    background:#ddd;
+    transform:translateY(-2px);
+}
+
+/* Signature */
+.signature{
+    margin-top:25px;
+    font-size:14px;
+    color:#777;
+    animation:fadeIn 2s ease;
+}
+
+/* Animation */
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes gradientBG {
+    0%{
+        background-position: 0% 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0% 50%;
+    }
+}
+
+</style>
+
+{% endblock %}

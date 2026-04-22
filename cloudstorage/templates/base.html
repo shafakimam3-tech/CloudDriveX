@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>CloudDriveX</title>
+
+```
+<style>
+    body{
+        margin:0;
+        font-family: 'Segoe UI', sans-serif;
+        background:#f4f6fb;
+    }
+
+    /* Navbar */
+    .navbar{
+        background:white;
+        padding:15px 30px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        box-shadow:0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .logo{
+        font-size:20px;
+        font-weight:bold;
+    }
+
+    .nav-links a{
+        margin-left:20px;
+        text-decoration:none;
+        color:#333;
+        font-weight:500;
+    }
+
+    /* Layout */
+    .layout{
+        display:flex;
+    }
+
+    /* Sidebar */
+    .sidebar{
+        width:220px;
+        background:white;
+        height:100vh;
+        padding:20px;
+        box-shadow:2px 0 10px rgba(0,0,0,0.05);
+    }
+
+    .sidebar a{
+        display:block;
+        margin-bottom:15px;
+        text-decoration:none;
+        color:#444;
+    }
+
+    /* Main */
+    .main{
+        flex:1;
+        padding:40px;
+    }
+
+
+    
+</style>
+```
+
+</head>
+
+<body>
+
+{% block content %}
+
+```
+{% if request.path != "/" %}
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">CloudDriveX</div>
+        <div class="nav-links">
+            <a href="/dashboard/">Dashboard</a>
+            <a href="/logout/">Logout</a>
+        </div>
+    </div>
+
+    <div class="layout">
+
+        <div class="sidebar">
+            <a href="/dashboard/">📁 My Files</a>
+            <a href="/upload/">⬆ Upload</a>
+        </div>
+
+        <div class="main">
+            {{ block.super }}
+        </div>
+
+    </div>
+
+{% else %}
+
+    <!-- Home page → full screen -->
+    {{ block.super }}
+
+{% endif %}
+```
+
+{% endblock %}
+
+
+
+<!-- Footer -->
+<div class="footer">
+    <p>
+        Cloud-Based Document Management System <br>
+        Developed by <strong>Shafak Imam</strong>
+    </p>
+</div>
+
+<style>
+.footer{
+    text-align:center;
+    padding:15px;
+    font-size:13px;
+    color:#888;
+    margin-top:40px;
+}
+</style>
+
+<style>
+    .footer{
+        text-align:center;
+        padding:15px;
+        font-size:13px;
+        color:white;
+        margin-top:40px;
+        opacity:0.8;
+    }
+    </style>
+</body>
+
+
+</html>

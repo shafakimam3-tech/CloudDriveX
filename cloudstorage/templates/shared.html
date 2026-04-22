@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Shared File - CloudDriveX</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Card */
+.container{
+    background:white;
+    padding:40px;
+    border-radius:15px;
+    text-align:center;
+    width:350px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Icon */
+.icon{
+    font-size:60px;
+    margin-bottom:15px;
+}
+
+/* Title */
+h2{
+    margin-bottom:10px;
+}
+
+/* File Name */
+.file-name{
+    font-size:14px;
+    color:#666;
+    margin-bottom:20px;
+    word-break:break-word;
+}
+
+/* Button */
+.download-btn{
+    padding:12px 20px;
+    background:#667eea;
+    color:white;
+    border:none;
+    border-radius:6px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.download-btn:hover{
+    background:#5a67d8;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="icon">📄</div>
+
+<h2>Shared File</h2>
+
+<p class="file-name">
+    {{ file.file.name|cut:"uploads/" }}
+</p>
+
+<a href="{{ file.file.url }}" download>
+    <button class="download-btn">Download File</button>
+</a>
+
+</div>
+
+</body>
+</html>
